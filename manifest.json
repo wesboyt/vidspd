@@ -6,7 +6,9 @@
   "version": "1.0",
   "homepage_url": "https://github.com/wesboyt/vidspd",
   "icons": {
-    "48": "icons/page-48.png"
+    "32": "icons/fficon-32.png",
+    "48": "icons/fficon-48.png",
+    "64": "icons/fficon-64.png"
   },
   "permissions": [
     "tabs",
@@ -18,7 +20,11 @@
   },
 
   "browser_action": {
-    "default_icon": "icons/page-32.png"
+    "default_icon": {
+      "32": "icons/fficon-32.png",
+      "48": "icons/fficon-48.png",
+      "64": "icons/fficon-64.png"
+    }
   }
 
 }
