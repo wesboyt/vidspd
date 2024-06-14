@@ -3,7 +3,7 @@ Handle the browser action click.
 */
 
 function onError(error) {
-    console.log(`Error: ${error}`);
+    console.log(`Error: ${error}`)
   }
   
   function change_rate(tabs) {
@@ -23,5 +23,7 @@ function onError(error) {
   }
   
   browser.browserAction.onClicked.addListener(() => {
-    browser.tabs.query({ active: true, currentWindow: true }).then(change_rate, onError);
+    browser.tabs.query({ active: true, currentWindow: true })
+      .then(change_rate)
+      .catch(onError)
   });
