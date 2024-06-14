@@ -1,21 +1,27 @@
 /*
-Open a new tab, and load "my-page.html" into it.
+Handle the browser action click.
 */
 
-function change_rate() {
-    var bodyElement = document.body;
-    if(bodyElement.getElementsByTagName('video')[0].playbackRate > 1) {
-        bodyElement.getElementsByTagName('video')[0].playbackRate = 1;
-    } else {
-        bodyElement.getElementsByTagName('video')[0].playbackRate = 5;
-    }
-
-}
-
-
-/*
-Add openMyPage() as a listener to clicks on the browser action.
-*/
-
-browser.browserAction.onClicked.addListener(change_rate);
- 
+function onError(error) {
+    console.log(`Error: ${error}`);
+  }
+  
+  function change_rate(tabs) {
+    browser.tabs.executeScript({
+      code: `
+        var bodyElement = document.body;
+        var videoElement = bodyElement.getElementsByTagName('video')[0];
+        if (videoElement) {
+          if (videoElement.playbackRate > 1) {
+            videoElement.playbackRate = 1;
+          } else {
+            videoElement.playbackRate = 5;
+          }
+        }
+      `
+    }).catch(onError);
+  }
+  
+  browser.browserAction.onClicked.addListener(() => {
+    browser.tabs.query({ active: true, currentWindow: true }).then(change_rate, onError);
+  });
